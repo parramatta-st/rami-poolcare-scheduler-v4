@@ -1,0 +1,47 @@
+RAMI POOL CARE V4 - VERCEL ENVIRONMENT VARIABLES
+=================================================
+
+Keep all existing Google-connected variables exactly as they are:
+
+GCP_PROJECT_ID=project-80830a9c-d1ac-4db0-a7d
+GCP_PROJECT_NUMBER=772718669372
+GCP_SERVICE_ACCOUNT_EMAIL=ramijimspoolcare@project-80830a9c-d1ac-4db0-a7d.iam.gserviceaccount.com
+GCP_WORKLOAD_IDENTITY_POOL_ID=vercel
+GCP_WORKLOAD_IDENTITY_POOL_PROVIDER_ID=vercel
+GCP_AUDIENCE=//iam.googleapis.com/projects/772718669372/locations/global/workloadIdentityPools/vercel/providers/vercel
+GOOGLE_SHEET_ID=1ZWp3U67YeM5SM7rbVs477gZSzT_LLaocBBPdQfHtMkM
+GOOGLE_DRIVE_FOLDER_ID=1W3KRc4LF5L-KiN91q0mWHwMubNdkIo6B
+APP_ACCESS_PIN=KEEP_YOUR_EXISTING_RAMI_PIN
+APP_SESSION_SECRET=KEEP_YOUR_EXISTING_SESSION_SECRET
+
+Add this required variable for secure automatic cron requests:
+
+CRON_SECRET=03b9ba231bbe400774ffdcfe8d0b5f5ec85633fae5d6e6cc
+
+OPTIONAL - GOOGLE ROAD-TIME ROUTE OPTIMISATION
+-----------------------------------------------
+The app has a local fallback, so you may leave this out initially.
+
+GOOGLE_MAPS_SERVER_KEY=YOUR_RESTRICTED_GOOGLE_MAPS_SERVER_KEY
+
+OPTIONAL - AUTOMATIC SMS THROUGH TWILIO
+---------------------------------------
+Leave these out until a Twilio account and Australian sender are ready.
+The app will still prepare the message and let Rami copy/open it manually.
+
+TWILIO_ACCOUNT_SID=YOUR_TWILIO_ACCOUNT_SID
+TWILIO_AUTH_TOKEN=YOUR_TWILIO_AUTH_TOKEN
+
+Use ONE of the following sender options:
+
+TWILIO_FROM_NUMBER=YOUR_TWILIO_AUSTRALIAN_NUMBER
+
+OR
+
+TWILIO_MESSAGING_SERVICE_SID=YOUR_TWILIO_MESSAGING_SERVICE_SID
+
+Important:
+- Select Production for every variable.
+- Do not add quote marks.
+- Never upload Twilio secrets or the cron secret into GitHub.
+- Redeploy after changing environment variables.

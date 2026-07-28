@@ -1,0 +1,27 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "headers": [
+    {
+      "source": "/service-worker.js",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }]
+    },
+    {
+      "source": "/manifest.webmanifest",
+      "headers": [
+        { "key": "Content-Type", "value": "application/manifest+json" },
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/(index.html|app.js|styles.css|config.js)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }]
+    }
+  ],
+  "functions": {
+    "api/*.js": { "maxDuration": 30 }
+  },
+  "crons": [
+    { "path": "/api/cron-reminders-0600", "schedule": "0 6 * * *" },
+    { "path": "/api/cron-reminders-0700", "schedule": "0 7 * * *" }
+  ]
+}

@@ -1,0 +1,159 @@
+RAMI POOL CARE V4 - SIMPLE DEPLOYMENT STEPS
+===========================================
+
+V4 adds:
+- A weekly timetable
+- 2-week, 4-week, custom-date and no-repeat follow-ups
+- Nearby lead suggestions for upcoming area days
+- Daily routes from Rami's current location back to home
+- Day-before reminder preparation
+- Optional automatic SMS through Twilio later
+
+IMPORTANT
+---------
+Your Google Workload Identity permission currently allows the Vercel PRODUCTION environment.
+For that reason, the simplest full test is to preserve a backup and then deploy V4 to main.
+A normal Preview branch may show the interface, but Google saving will not work there unless Preview is separately authorised in Google Cloud.
+
+1. KEEP THE CURRENT VERSION SAFE
+--------------------------------
+Open the private GitHub repository named:
+
+rami-poolcare
+
+Create a branch from the current main branch called:
+
+before-scheduler-v4
+
+Do not edit that branch. It is the restore point if anything goes wrong.
+
+Your older prototype-v2-backup branch can also remain untouched.
+
+2. UNZIP V4
+-----------
+Download and unzip:
+
+rami-poolcare-scheduler-v4.zip
+
+Open the extracted folder. You should directly see:
+
+index.html
+app.js
+styles.css
+vercel.json
+package.json
+api
+assets
+
+Do not upload the outer folder itself. Upload everything INSIDE it.
+
+3. ADD THE NEW VERCEL VARIABLE
+------------------------------
+Open:
+
+Vercel -> rami-poolcare-vercel-ready -> Settings -> Environment Variables
+
+Open VERCEL_ENVIRONMENT_VARIABLES.txt from this download.
+
+Add this new variable to Production:
+
+CRON_SECRET
+
+Use the exact generated value shown in that file.
+
+Keep all existing Google and login variables unchanged.
+The Google Maps and Twilio variables are optional and can be added later.
+
+4. UPLOAD V4 TO GITHUB MAIN
+---------------------------
+In GitHub:
+
+1. Return to the rami-poolcare repository.
+2. Select the main branch.
+3. Choose Add file -> Upload files.
+4. Select everything INSIDE the V4 folder.
+5. Drag all files and folders into GitHub.
+6. Commit message:
+
+Add timetable and recurring service planner
+
+7. Choose Commit directly to the main branch.
+8. Press Commit changes.
+
+Vercel should automatically create a new Production deployment while keeping the same domain:
+
+https://rami-poolcare-vercel-ready.vercel.app
+
+5. TEST THE LIVE UPDATE
+-----------------------
+After Vercel says Ready, test in this order:
+
+1. Sign in with Rami's PIN.
+2. Open Schedule.
+3. Add a member to a day.
+4. Open that day.
+5. Confirm a nearby lead is suggested when applicable.
+6. Open the lead and confirm Next Nearby Run appears.
+7. Press Optimise My Day and allow phone location.
+8. Confirm the route has Rami's home as the finish.
+9. Complete a test stop and choose 2 Weeks or 4 Weeks.
+10. Confirm the future visit appears in Schedule.
+11. Preview a reminder message.
+12. Refresh the page and confirm everything remains saved.
+13. Check the Google Sheet for the new Appointments tab.
+
+The app automatically creates missing Google Sheet tabs and upgrades the existing sheet structure when it first saves.
+
+6. SET THE REAL HOME LOCATION
+-----------------------------
+In the app, open:
+
+Home -> Home address and reminder settings
+
+The temporary finishing address is currently:
+
+7 Weston St, Rosehill NSW 2142
+
+Replace it with the actual address Rami wants each day's route to finish at.
+The home address is used only for route planning and is not included in customer messages.
+
+7. REMINDERS BEFORE TWILIO
+--------------------------
+Without Twilio, Rami can still:
+- Preview each reminder
+- Copy the message
+- Open the phone's Messages app with the text prepared
+- Mark reminders for the scheduled day
+
+The default message is:
+
+Hi [First Name],
+
+Just a quick note to let you know I'll be by tomorrow to service your pool. Please ensure the side gate is unlocked so I can access the pool area.
+
+Thank you, and I'll see you tomorrow.
+
+Regards,
+Rami Narse
+Jim's Pool Care Parramatta
+
+8. AUTOMATIC SMS LATER
+----------------------
+When a Twilio account and suitable Australian sender are ready, add the optional Twilio variables from VERCEL_ENVIRONMENT_VARIABLES.txt.
+
+The two Vercel cron checks cover both Sydney daylight-saving and standard time. Only the run that occurs at 5:00 pm Australia/Sydney proceeds. Duplicate reminders are blocked by the ReminderStatus saved against each appointment.
+
+9. OPTIONAL GOOGLE ROAD-TIME OPTIMISATION
+-----------------------------------------
+The app already has a local route optimiser that works without another key.
+
+Later, adding GOOGLE_MAPS_SERVER_KEY enables Google's road-time waypoint ordering. Until then, the app uses the existing coordinate-based route method and still includes the journey home.
+
+RESTORING THE PREVIOUS VERSION
+------------------------------
+If the update has a serious problem:
+
+1. Open GitHub.
+2. Open the before-scheduler-v4 branch.
+3. Create a pull request from before-scheduler-v4 into main, or restore the previous main commit.
+4. Vercel will redeploy the previous version to the same domain.

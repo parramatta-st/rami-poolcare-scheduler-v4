@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#111827" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Rami Pool Care" />
+  <meta name="description" content="Mobile pool-service timetable, reminders, customer photos and return-home route planner." />
+  <title>Rami Pool Care</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="assets/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <header class="topbar">
+      <button id="backButton" class="icon-button hidden" type="button" aria-label="Go back">←</button>
+      <div class="brand-block">
+        <div class="brand-mark" aria-hidden="true">💧</div>
+        <div>
+          <div class="brand-name">Rami Pool Care</div>
+          <div id="screenSubtitle" class="screen-subtitle">Simple service organiser</div>
+        </div>
+      </div>
+      <button id="installButton" class="icon-button hidden" type="button" aria-label="Install app">＋</button>
+    </header>
+
+    <main id="mainContent" class="main-content" tabindex="-1"></main>
+
+    <nav id="bottomNav" class="bottom-nav" aria-label="Main navigation">
+      <button class="nav-item active" data-screen="home" type="button">
+        <span class="nav-icon">⌂</span><span>Home</span>
+      </button>
+      <button class="nav-item" data-screen="schedule" type="button">
+        <span class="nav-icon">📅</span><span>Schedule</span>
+      </button>
+      <button class="nav-item" data-screen="leads" type="button">
+        <span class="nav-icon">⚡</span><span>Leads</span>
+      </button>
+      <button class="nav-item" data-screen="members" type="button">
+        <span class="nav-icon">👥</span><span>Customers</span>
+      </button>
+      <button class="nav-item" data-screen="routes" type="button">
+        <span class="nav-icon">🗺</span><span>Run</span>
+      </button>
+    </nav>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <div id="modalRoot" class="modal-root hidden" aria-hidden="true"></div>
+
+  <div id="gallery" class="gallery hidden" aria-hidden="true">
+    <button id="galleryClose" class="gallery-close" type="button" aria-label="Close gallery">×</button>
+    <div id="galleryCounter" class="gallery-counter"></div>
+    <button id="galleryPrev" class="gallery-arrow gallery-prev" type="button" aria-label="Previous photo">‹</button>
+    <figure class="gallery-figure">
+      <img id="galleryImage" class="gallery-image" alt="Member photo" />
+      <figcaption id="galleryCaption" class="gallery-caption"></figcaption>
+    </figure>
+    <button id="galleryNext" class="gallery-arrow gallery-next" type="button" aria-label="Next photo">›</button>
+  </div>
+
+  <input id="cameraInput" class="hidden" type="file" accept="image/*" capture="environment" />
+  <input id="libraryInput" class="hidden" type="file" accept="image/*" />
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
